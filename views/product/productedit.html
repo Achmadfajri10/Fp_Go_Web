@@ -60,7 +60,6 @@
             <div class="mb-3">
               <label class="form-label">Category</label>
               <select class="form-select" name="category_id">
-                <option selected>{{ .product.Category.Id }}</option>
                 {{ range .categories }}
                 <option value="{{ .Id }}">{{ .Name }}</option>
                 {{ end }}
@@ -83,4 +82,24 @@
       </div>
     </div>
   </body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage = urlParams.get('error');
+
+    if (errorMessage) {
+        let message = "";
+        switch (errorMessage) {
+            case "no_categories":
+                message = "No categories found. Please create a category first.";
+                break;
+            case "invalid_category":
+                message = "Invalid category selected. Please select a valid category.";
+                break;
+            case "invalid_stock":
+                message = "Stock must be greater than 0, and must be a number.";
+                break;
+        }
+        alert(message);
+    }
+  </script>
 </html>

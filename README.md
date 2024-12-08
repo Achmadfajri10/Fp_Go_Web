@@ -13,13 +13,38 @@
     go mod download
     ```
 
-3. **Install Air: (Recommended)**
+3. **Setup Database**
+   ```sql
+    CREATE DATABASE `go_products`;
+    USE `go_products`;
+    
+    CREATE TABLE `categories` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) NOT NULL,
+    `created_at` timestamp NOT NULL,
+    `updated_at` timestamp NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+    CREATE TABLE `products` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) NOT NULL,
+    `category_id` int NOT NULL,
+    `stock` int NOT NULL,
+    `description` text,
+    `created_at` timestamp NOT NULL,
+    `updated_at` timestamp NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+   ```
+
+4. **Install Air: (Recommended)**
     Air is a live reload tool for Go applications.
     ```bash
     go install github.com/air-verse/air@latest
     ```
 
-4. **Run the application with Air:**
+5. **Run the application with Air:**
     ```bash
     air
     ```
@@ -29,8 +54,8 @@
     go run .
     ```
 
-5. **Access the application:**
+6. **Access the application:**
     Open your browser and navigate to `http://localhost:8080` (or the port specified in your application).
 
-6. **Stop the application:**
+7. **Stop the application:**
     Press `Ctrl+C` in the terminal where Air is running.

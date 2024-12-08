@@ -5,98 +5,90 @@ import (
 	"Fp_Go_Web/models/categorymodel"
 	"net/http"
 	"strconv"
-	"text/template"
 	"time"
+	"github.com/gin-gonic/gin"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func Index(c *gin.Context) {
 	categories := categorymodel.GetAll()
-	data := map[string]any{
+	c.HTML(http.StatusOK, "categoryindex.html", gin.H{
 		"categories": categories,
-	}
-	temp, err := template.ParseFiles("views/category/index.html")
-	if err != nil {
-		panic(err)
-	}
-	temp.Execute(w, data)
+	})
 }
 
-func Add(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		temp, err := template.ParseFiles("views/category/create.html")
-		if err != nil {
-			panic(err)
-		}
-		temp.Execute(w, nil)
+func Add(c *gin.Context) {
+	if c.Request.Method == "GET" {
+		c.HTML(http.StatusOK, "categorycreate.html", nil)
+		return
 	}
-	if r.Method == "POST" {
-		var category entities.Category
 
-		category.Name = r.FormValue("name")
+	if c.Request.Method == "POST" {
+		var category entities.Category
+		category.Name = c.PostForm("name")
 		category.CreatedAt = time.Now()
 		category.UpdatedAt = time.Now()
 
 		if ok := categorymodel.Create(category); !ok {
-			temp, _ := template.ParseFiles("views/category/create.hmtl")
-			temp.Execute(w, nil)
-		}
-
-		http.Redirect(w, r, "/categories", http.StatusSeeOther)
-	}
-}
-
-func Edit(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		temp, err := template.ParseFiles("views/category/edit.html")
-		if err != nil {
-			panic(err)
-		}
-
-		idString := r.URL.Query().Get("id")
-		id, err := strconv.Atoi(idString)
-		if err != nil {
-			panic(err)
-		}
-
-		category := categorymodel.Detail(id)
-		data := map[string]any{
-			"category": category,
-		}
-
-		temp.Execute(w, data)
-	}
-
-	if r.Method == "POST" {
-		var category entities.Category
-
-		idString := r.FormValue("id")
-		id, err := strconv.Atoi(idString)
-		if err != nil {
-			panic(err)
-		}
-
-		category.Name = r.FormValue("name")
-		category.UpdatedAt = time.Now()
-
-		if ok := categorymodel.Update(id, category); !ok {
-			http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+			c.HTML(http.StatusInternalServerError, "category/create.html", gin.H{"error": "Failed to create category"})
 			return
 		}
 
-		http.Redirect(w, r, "/categories", http.StatusSeeOther)
+		c.Redirect(http.StatusSeeOther, "/categories/")
+	}
+
+}
+
+func Edit(c *gin.Context) {
+
+	if c.Request.Method == "GET" {
+		idString := c.Query("id")
+		id, err := strconv.Atoi(idString)
+		if err != nil {
+			c.String(http.StatusBadRequest, "Invalid ID")
+			return
+		}
+
+		category := categorymodel.Detail(id)
+		c.HTML(http.StatusOK, "categoryedit.html", gin.H{
+			"category": category,
+		})
+		return
+	}
+
+	if c.Request.Method == "POST" {
+		var category entities.Category
+
+		idString := c.PostForm("id")
+		id, err := strconv.Atoi(idString)
+		if err != nil {
+			c.String(http.StatusBadRequest, "Invalid ID")
+			return
+		}
+
+		category.Name = c.PostForm("name")
+		category.UpdatedAt = time.Now()
+
+		if ok := categorymodel.Update(id, category); !ok {
+            c.Redirect(http.StatusSeeOther, "/categories/edit?id="+idString)
+			return
+		}
+
+		c.Redirect(http.StatusSeeOther, "/categories/")
 	}
 }
 
-func Delete(w http.ResponseWriter, r *http.Request) {
-	idString := r.URL.Query().Get("id")
+func Delete(c *gin.Context) {
+	idString := c.Query("id")
 	id, err := strconv.Atoi(idString)
 	if err != nil {
-		panic(err)
+		c.String(http.StatusBadRequest, "Invalid ID")
+		return
 	}
 
 	if err := categorymodel.Delete(id); err != nil {
-		panic(err)
-	} 
+        c.Redirect(http.StatusSeeOther, "/categories")
+		return
+	}
 
-	http.Redirect(w, r, "/categories", http.StatusSeeOther)
+	c.Redirect(http.StatusSeeOther, "/categories")
 }

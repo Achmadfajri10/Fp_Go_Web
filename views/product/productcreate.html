@@ -91,8 +91,14 @@
             case "no_categories":
                 message = "No categories found. Please create a category first.";
                 break;
+            case "invalid_category":
+                message = "Invalid category selected. Please select a valid category.";
+                break;
+            case "invalid_stock":
+                message = "Stock must be greater than 0, and must be a number.";
+                break;
         }
         alert(message);
     }
-</script>
+  </script>
 </html>
