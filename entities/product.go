@@ -1,13 +1,12 @@
 package entities
 
-import "time"
+import "gorm.io/gorm"
 
 type Product struct {
-	Id          uint
+	gorm.Model
 	Name        string
-	Category  	Category
+	CategoryID  uint
+	Category    Category `gorm:"foreignKey:CategoryID"`
 	Stock       int
 	Description string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
 }

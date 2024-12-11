@@ -38,7 +38,8 @@
     <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container">
         <a class="navbar-brand text-light" href="/">Go Products</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -48,6 +49,8 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active text-light" href="/categories">Categories</a>
+            </li>
+            <li class="nav-item" id="auth-links">
             </li>
           </ul>
         </div>
@@ -71,8 +74,8 @@
             <tr>
                 <td>{{ .Name }}</td>
                 <td>
-                    <a href="/categories/edit?id={{ .Id }}" class="btn-warning">Edit</a>
-                    <a href="/categories/delete?id={{ .Id }}" class="btn-danger" onclick="return confirm('Are You Sure Want to delete this category?')">Delete</a>
+                    <a href="/categories/edit?id={{ .ID }}" class="btn-warning">Edit</a>
+                    <a href="/categories/delete?id={{ .ID }}" class="btn-danger" onclick="return confirm('Are You Sure Want to delete this category?')">Delete</a>
                 </td>
             </tr>
             {{ end }}
@@ -80,4 +83,5 @@
       </table>
     </div>
   </body>
+  <script src="/static/navbar.js" defer></script>
 </html>

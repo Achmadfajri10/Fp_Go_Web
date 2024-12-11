@@ -16,28 +16,19 @@
     <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container">
         <a class="navbar-brand text-light" href="/">Go Products</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active text-light" href="/products"
-                >Products</a
-              >
+              <a class="nav-link active text-light" href="/products">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active text-light" href="/categories"
-                >Categories</a
-              >
+              <a class="nav-link active text-light" href="/categories">Categories</a>
+            </li>
+            <li class="nav-item" id="auth-links">
             </li>
           </ul>
         </div>
@@ -52,7 +43,7 @@
           <hr />
 
           <form action="/products/edit" method="POST">
-            <input type="hidden" name="id" value="{{ .product.Id }}" />
+            <input type="hidden" name="id" value="{{ .product.ID }}" />
             <div class="mb-3">
               <label class="form-label">Name</label>
               <input type="text" class="form-control" name="name" autocomplete="off" value="{{ .product.Name }}"/>
@@ -61,7 +52,7 @@
               <label class="form-label">Category</label>
               <select class="form-select" name="category_id">
                 {{ range .categories }}
-                <option value="{{ .Id }}">{{ .Name }}</option>
+                <option value="{{ .ID }}">{{ .Name }}</option>
                 {{ end }}
               </select>
             </div>
@@ -102,4 +93,5 @@
         alert(message);
     }
   </script>
+  <script src="/static/navbar.js" defer></script>
 </html>

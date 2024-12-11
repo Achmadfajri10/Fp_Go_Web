@@ -29,37 +29,26 @@
         </div>
       </div>
     </nav>
-    <!-- Navbar -->
 
-    <div class="container mt-3">
-      <h2>List Products</h2>  
-      <hr>
-      <a href="/products/add" class="btn btn-primary">Add Product</a>
-      <table class="table table-bordered mt-2 text-center">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ range .products}}
-            <tr>
-                <td>{{ .Name }}</td>
-                <td>{{ .Category.Name }}</td>
-                <td>{{ .Stock }}</td>
-                <td>
-                    <a href="/products/detail?id={{ .ID }}" class="btn btn-info text-light">Detail</a>
-                    <a href="/products/edit?id={{ .ID }}" class="btn btn-warning text-light">Edit</a>
-                    <a href="/products/delete?id={{ .ID }}" class="btn btn-danger text-light" onclick="return confirm('Are You Sure Want to delete this product?')">Delete</a>
-                </td>
-            </tr>
-            {{ end }}
-        </tbody>
-      </table>
-    </div>
-  </body>
-  <script src="/static/navbar.js" defer></script>
+    <section class="signup">
+        <div class="container w-25">
+            <div class=""></div>
+                <form action="/login" method="POST">
+                    <h1 class="h3 mt-4 mb-3 fw-normal">Please sign in</h1>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="loginInput" placeholder="name@example.com">
+                        <label for="loginInput">Email Address/Username</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Sign In</button>
+                    <p class="mt-2 text-body-secondary">Don't have an account? <a href="/register">Register</a></p>
+                    <p class="mt-2 mb-3 text-body-secondary">© 2017 – 2024</p>
+                    </form>
+            </div>
+        </div>
+    </section>
+    <script src="/static/navbar.js" defer></script>
 </html>

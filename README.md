@@ -1,61 +1,37 @@
 # Fp_Go_Web
 
 ##How To Run:
-1. **Clone the repository:**
+1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/Achmadfajri10/Fp_Go_Web
-    cd Fp_Go_Web
+        git clone https://github.com/Achmadfajri10/Fp_Go_Web
+        cd Fp_Go_Web
     ```
 
-2. **Install dependencies:**
-    Make sure you have Go installed. If not, download and install it from [here](https://golang.org/dl/), and don't forget to run 
+2. **Install Dependencies:**
+    Make sure you have Go installed. If not, download and install it from [here](https://golang.org/dl/), and don't forget to run
     ```bash
-    go mod download
+        go mod download
     ```
 
-3. **Setup Database**
-   ```sql
-    CREATE DATABASE `go_products`;
-    USE `go_products`;
-    
-    CREATE TABLE `categories` (
-    `id` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(100) NOT NULL,
-    `created_at` timestamp NOT NULL,
-    `updated_at` timestamp NOT NULL,
-    PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+3. **Make Sure MYSQL is turned on**
 
-    CREATE TABLE `products` (
-    `id` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(100) NOT NULL,
-    `category_id` int NOT NULL,
-    `stock` int NOT NULL,
-    `description` text,
-    `created_at` timestamp NOT NULL,
-    `updated_at` timestamp NOT NULL,
-    PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-   ```
-
-4. **Install Air: (Recommended)**
-    Air is a live reload tool for Go applications.
+4. **Init Setup**
+    this step is used to generate a .env file for the user when it didnt detect a .env file, when it's done you can use `Ctrl + C` to stop the program 
     ```bash
-    go install github.com/air-verse/air@latest
+        go run .
     ```
 
-5. **Run the application with Air:**
+5. **Install Air: (Optional)**
+    Air is a live reload tool for Go applications. You can skip this step if you just want to run the program, but it's recommended to use while updating the code as it will help you reload the go program when a change is detected.
     ```bash
-    air
-    ```
+        go install github.com/air-verse/air@latest
 
-    **If you didn't install Air:**
-    ```bash
-    go run .
+        # Wait until the program is installed
+        air
     ```
 
 6. **Access the application:**
     Open your browser and navigate to `http://localhost:8080` (or the port specified in your application).
 
 7. **Stop the application:**
-    Press `Ctrl+C` in the terminal where Air is running.
+    Press `Ctrl+C` in the terminal where Air/Go is running.
