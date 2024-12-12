@@ -17,7 +17,6 @@ function updateNavbar() {
       })
       .catch(error => {
             console.error('Error fetching user data:', error);
-            // Handle error (e.g., display a message)
         });
   }
 

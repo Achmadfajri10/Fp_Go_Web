@@ -37,7 +37,7 @@ func Update(id uint, product entities.Product) error {
 
 }
 
-func Delete(id uint) error { // Changed id type & improved error handling
+func Delete(id uint) error {
 	result := config.DB.Delete(&entities.Product{}, id)
 	return result.Error
 }

@@ -27,7 +27,7 @@ func Update(id uint, category entities.Category) bool {
 	return result.RowsAffected > 0
 }
 
-func Delete(id uint) error { // Changed id to uint
-	result := config.DB.Delete(&entities.Category{}, id) // GORM's Delete method
+func Delete(id uint) error {
+	result := config.DB.Delete(&entities.Category{}, id)
 	return result.Error
 }

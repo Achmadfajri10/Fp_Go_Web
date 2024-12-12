@@ -55,7 +55,7 @@ func main() {
 		products.GET("/", productcontroller.Index)
 		products.GET("/add", productcontroller.Add)
 		products.POST("/add", productcontroller.Add)
-		products.GET("/detail/:id", productcontroller.Detail)
+		products.GET("/detail", productcontroller.Detail)
 		products.GET("/edit", productcontroller.Edit)
 		products.POST("/edit", productcontroller.Edit)
 		products.GET("/delete", productcontroller.Delete)

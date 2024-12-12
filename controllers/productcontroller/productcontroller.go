@@ -14,15 +14,20 @@ import (
 func Index(c *gin.Context) {
 	products, err := productmodel.GetAll()
 	if err != nil {
-		c.String(http.StatusInternalServerError, "Failed to retrieve products") // Handle error
+		c.String(http.StatusInternalServerError, "Failed to retrieve products")
 		return
 	}
 	c.HTML(http.StatusOK, "productindex.html", gin.H{"products": products})
 }
 
 func Detail(c *gin.Context) {
-	idString := c.Param("id")
-	id, err := strconv.ParseUint(idString, 10, 64) // Use ParseUint for uint conversion
+	idString := c.Query("id")
+	if idString == "" {
+		c.String(http.StatusBadRequest, "Missing product ID")
+		return
+	}
+
+	id, err := strconv.ParseUint(idString, 10, 64)
 	if err != nil {
 		c.String(http.StatusBadRequest, "Invalid product ID")
 		return
@@ -30,10 +35,10 @@ func Detail(c *gin.Context) {
 
 	product, err := productmodel.Detail(uint(id))
 	if err != nil {
-		if err == gorm.ErrRecordNotFound { // Check for specific error
+		if err == gorm.ErrRecordNotFound {
 			c.String(http.StatusNotFound, "Product not found")
 		} else {
-			c.String(http.StatusInternalServerError, "Failed to retrieve product") // Handle other errors
+			c.String(http.StatusInternalServerError, "Failed to retrieve product")
 		}
 		return
 	}
@@ -97,7 +102,7 @@ func Add(c *gin.Context) {
 func Edit(c *gin.Context) {
 	if c.Request.Method == "GET" {
 		idString := c.Query("id")
-		id, err := strconv.ParseUint(idString, 10, 64) // Use ParseUint
+		id, err := strconv.ParseUint(idString, 10, 64)
 		if err != nil {
 			c.String(http.StatusBadRequest, "Invalid product ID")
 			return
@@ -159,13 +164,13 @@ func Edit(c *gin.Context) {
 
 func Delete(c *gin.Context) {
 	idString := c.Query("id")
-	id, err := strconv.ParseUint(idString, 10, 64) // Use ParseUint
+	id, err := strconv.ParseUint(idString, 10, 64)
 	if err != nil {
 		c.String(http.StatusBadRequest, "Invalid product ID")
 		return
 	}
 
-	err = productmodel.Delete(uint(id)) //Pass uint type
+	err = productmodel.Delete(uint(id))
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Error deleting product")
 		return
