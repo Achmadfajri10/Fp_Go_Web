@@ -17,7 +17,7 @@ func CheckAuth(c *gin.Context) {
 	tokenString, err := c.Cookie("jwt")
 	if err != nil {
 		if err == http.ErrNoCookie {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.Redirect(http.StatusMovedPermanently, "/login")
 			return
 		}
 		c.AbortWithStatus(http.StatusBadRequest)

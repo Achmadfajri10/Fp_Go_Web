@@ -19,3 +19,11 @@ type LoginInput struct {
 	Identifier string
 	Password   string
 }
+
+type EditInput struct {
+	ID          uint
+	Username    string
+	Email       string
+	OldPassword string
+	Password    string
+}

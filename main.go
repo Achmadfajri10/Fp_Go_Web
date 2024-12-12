@@ -8,6 +8,7 @@ import (
 	"Fp_Go_Web/controllers/productcontroller"
 	"Fp_Go_Web/middlewares"
 	"log"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +22,7 @@ func main() {
 	config.AllowHeaders = []string{"Authorization"}
 	r.Use(cors.New(config))
 
-	r.Static("/static", "./static") 
+	r.Static("/static", "./static")
 
 	r.LoadHTMLGlob("views/**/*.html")
 
@@ -33,6 +34,9 @@ func main() {
 	r.POST("/login", authcontroller.Login)
 	r.GET("/logout", authcontroller.Logout)
 	r.GET("/user", authcontroller.GetUserProfile)
+	r.GET("/profile", authcontroller.EditProfile)
+	r.POST("/profile", authcontroller.EditProfile)
+	r.GET("/delete", authcontroller.Delete)
 
 	//2.Categories
 	categories := r.Group("/categories", middlewares.CheckAuth)

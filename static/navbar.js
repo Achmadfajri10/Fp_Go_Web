@@ -5,7 +5,7 @@ function updateNavbar() {
         const authLinks = document.getElementById('auth-links');
         if (data.user) {
           authLinks.innerHTML = `
-            <p class="text-light m-2">Welcome, ${data.user}!</p>
+            <p class="text-light m-2">Welcome, <a href="/profile">${data.user}</a>!</p>
             <a class="btn btn-outline-light justify-content-end" id="logoutLink" href="/logout">Logout</a>
           `;
 
