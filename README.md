@@ -3,6 +3,9 @@
 Link Demo FP:
 [Youtube](https://www.youtube.com/live/IvIPQFeuOug?si=3cPXopVnB9peyNhB&t=75)
 
+Link FP Jobs:
+[Github](https://github.com/SamuelBerkatHulu/FP-PBKK)
+
 ##How To Run:
 1. **Clone the Repository:**
     ```bash
